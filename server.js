@@ -4,7 +4,7 @@
 const express =  require('express');
 const cors = require('cors');
 require('dotenv').config();
-const weather = require('./data/weather.json');
+const weatherData = require('./data/weather.json');
 
 // Express server instance
 const app = express();
@@ -21,27 +21,31 @@ app.get('/', (request, response) => {
     response.send('Testing. 1, 2, 3?');
 });
 // weather data
-app.get('/weather', (req, res) => {
-    // get searchQuery from the request object
-    const city = req.query.city;
-    console.log('query parameter: ', req.query);
-    console.log('type: ', city);
-    res.send('testing weather endpoint', city);
+app.get('/weather', (request, response) => {
+    const lat = request.query.lat;
+    const lon = request.query.lon;
+    const searchQuery = request.query.searchQuery;
+    // or alternatively we could do the same with  destructing:
+    // const{lat, lon, searchQuery} = request.query;
+    const forecast = new Forecast(searchQuery);
+    const forecastArray = forecast.getForecast();
+    // send forecast Array back
+    response.status(200).send(forecastArray);
 });
 
 // classes
 class Forecast {
-    constructor(city){
-        // method to find city forecast
-        let{city_name, data} = weather.data.find(data => data.city_name === city);
-        this.city = city_name;
+    constructor(userCity){
+        let {data} = weatherData.find(city => city.city_name.toLowerCase() === userCity.toLowerCase());
         this.data = data;
     }
-    // method to get lat and lon
-    // getCoordinates(){
-    //     return this.
-    // }
 
+    getForecast() {
+        return this.data.map(day => ({
+            date: day.datetime,
+            description: day.weather.description,
+        }));
+    }
 }
 
 // port listener
