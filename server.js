@@ -26,11 +26,11 @@ app.get('/weather', (request, response) => {
     const lon = request.query.lon;
     const searchQuery = request.query.searchQuery;
     // or alternatively we could do the same with  destructing:
-    // const{lat, lon, searchQuery} = request.query;
+    //  const{lat, lon, searchQuery} = request.query;
     const forecast = new Forecast(searchQuery);
-    const forecastArray = forecast.getForecast();
-    // send forecast Array back
-    response.status(200).send(forecastArray);
+    const forecasts = forecast.getForecast();
+    // send forecasts array back
+    response.status(200).send(forecasts);
 });
 
 // classes
