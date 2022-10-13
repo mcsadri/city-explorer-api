@@ -1,7 +1,7 @@
 # City Explorer API
 
 **Author**: Your Name Goes Here
-**Version**: 1.0.0
+**Version**: 1.0.1
 
 **Trello board**: [trello.com/b/jvSJYqyl/city-explorer](https://trello.com/b/jvSJYqyl/city-explorer)
 
@@ -24,6 +24,30 @@ City Explorer is a React application that uses the Axios library to make user-in
 ## Credit and Collaborations
 
 - Andra Steele ([github.com/asteele1493](https://github.com/asteele1493)): partner for drawing the web request-response cycle for lab 07
+- Ezgi Coban [github.com/ezgi-c](https://github.com/ezgi-c): partner for drawing the web request-response cycle for lab 08
+
+---
+
+## Lab 08
+
+### Tasks & User Stories 08
+
+1. Weather (live): As a user of City Explorer, I want to see weather info for the city I searched, so that I know how to pack for an upcoming trip.
+2. Movies: As a user of City Explorer, I want to see info about movies related to the city I searched, so that I can learn more about the destination.
+3. Publish: Deploy your server. As a user, I want to access the City Explorer application on the web, so that anyone can explore from anywhere.
+
+### Time Estimate 08
+
+| Number & Name of Feature | #1: Weather | #2: Movies | #3: Publish |
+|--------------------------|------------|-------------|---------------|
+| Est. Time to Complete    | --:-- | --:-- | --:-- |
+| Start Time               | --:-- | --:-- | --:-- |
+| Finish Time              | --:-- | --:-- | --:-- |
+| Actual Time to Complete  | --:-- | --:-- | --:-- |
+
+### Web Request-Response Cycle - completed with Azgi Coban
+
+[Web Request-Response Cycle - lab 08](/public/images/request-response-lab08.jpg "Web Request-Response Cycle")
 
 ---
 
@@ -39,10 +63,10 @@ City Explorer is a React application that uses the Axios library to make user-in
 
 | Number & Name of Feature | #1: Set-up | #2: Weather | #3: MapErrors |
 |--------------------------|------------|-------------|---------------|
-| Est. Time to Complete    | 01:00 | 02:00 | --:-- |
-| Start Time               | 19:45 | 13:00 | --:-- |
-| Finish Time              | 20:40 | unknown | --:-- |
-| Actual Time to Complete  | 00:55 | unknown | --:-- |
+| Est. Time to Complete    | 01:00 | 02:00 | unknown |
+| Start Time               | 19:45 | 13:00 | unknown |
+| Finish Time              | 20:40 | unknown | unknown |
+| Actual Time to Complete  | 00:55 | unknown | unknown |
 
 ### Web Request-Response Cycle - completed with Andra Steele
 
