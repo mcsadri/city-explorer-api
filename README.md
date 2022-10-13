@@ -1,7 +1,7 @@
 # City Explorer API
 
 **Author**: Your Name Goes Here
-**Version**: 0.1.0
+**Version**: 1.0.0
 
 **Trello board**: [trello.com/b/jvSJYqyl/city-explorer](https://trello.com/b/jvSJYqyl/city-explorer)
 
@@ -39,10 +39,10 @@ City Explorer is a React application that uses the Axios library to make user-in
 
 | Number & Name of Feature | #1: Set-up | #2: Weather | #3: MapErrors |
 |--------------------------|------------|-------------|---------------|
-| Est. Time to Complete    | 01:00 | --:-- | --:-- | --:-- |
-| Start Time               | 19:45 | --:-- | --:-- | --:-- |
-| Finish Time              | 20:40 | --:-- | --:-- | --:-- |
-| Actual Time to Complete  | 00:55 | --:-- | --:-- | --:-- |
+| Est. Time to Complete    | 01:00 | 02:00 | --:-- |
+| Start Time               | 19:45 | 13:00 | --:-- |
+| Finish Time              | 20:40 | unknown | --:-- |
+| Actual Time to Complete  | 00:55 | unknown | --:-- |
 
 ### Web Request-Response Cycle - completed with Andra Steele
 
