@@ -21,16 +21,20 @@ app.get('/', (request, response) => {
     response.send('Testing. 1, 2, 3?');
 });
 // weather data
-app.get('/weather', (request, response) => {
-    const lat = request.query.lat;
-    const lon = request.query.lon;
-    const searchQuery = request.query.searchQuery;
-    // or alternatively we could do the same with  destructing:
-    //  const{lat, lon, searchQuery} = request.query;
-    const forecast = new Forecast(searchQuery);
-    const forecasts = forecast.getForecast();
-    // send forecasts array back
-    response.status(200).send(forecasts);
+app.get('/weather', (request, response, next) => {
+    try {
+        // const lat = request.query.lat;
+        // const lon = request.query.lon;
+        const searchQuery = request.query.searchQuery;
+        // or alternatively we could do the same with  destructing:
+        //  const{lat, lon, searchQuery} = request.query;
+        const forecast = new Forecast(searchQuery);
+        const forecasts = forecast.getForecast();
+        // send forecasts array back
+        response.status(200).send(forecasts);
+    } catch(error) {
+        next(error.message);
+    }
 });
 
 // classes
@@ -47,6 +51,13 @@ class Forecast {
         }));
     }
 }
+
+// middleware for error handling
+// eslint-disable-next-line
+app.use((error, request, response, next) => {
+    console.log(error);
+    response.status(500).send(error);
+});
 
 // port listener
 app.listen(PORT, console.log(`listening on PORT ${PORT}`));
