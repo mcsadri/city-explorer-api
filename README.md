@@ -1,7 +1,7 @@
 # City Explorer API
 
 **Author**: Your Name Goes Here
-**Version**: 1.1.0
+**Version**: 1.2.0
 
 **Trello board**: [trello.com/b/jvSJYqyl/city-explorer](https://trello.com/b/jvSJYqyl/city-explorer)
 

@@ -1,25 +1,26 @@
 'use strict';
 
-// requires
+// REQUIRES
 const express =  require('express');
 const cors = require('cors');
 require('dotenv').config();
 const axios = require('axios');
 
-// Express server instance
+// SERVER
 const app = express();
 
-// middleware
+// MIDDLEWARE
 app.use(cors());
 
-// PORT variable
+// PORT
 const PORT = process.env.PORT || 3002;
 
-// endpoints
+// ENDPOINTS
 // home route
 app.get('/', (request, response) => {
     response.send('Testing. 1, 2, 3?');
 });
+
 // weather route
 app.get('/weather', async (request, response, next) => {
     try {
@@ -37,7 +38,21 @@ app.get('/weather', async (request, response, next) => {
     }
 });
 
-// classes
+// movie route
+app.get('/movies', async (request, response, next) => {
+    try {
+        const searchQuery = request.query.searchQuery;
+        const movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${searchQuery}&page=1`;
+        const movieResponse = await axios.get(movieUrl);
+        console.log(movieResponse.data);
+        const movies = movieResponse.data.results.map(movie => new Movie(movie));
+        response.status(200).send(movies);
+    } catch(error) {
+        next(error.message);
+    }
+});
+
+// CLASSES
 class Forecast {
     constructor(day){
         this.id = day.sunrise_ts;
@@ -47,13 +62,25 @@ class Forecast {
         this.highTemp = day.high_temp + ' °C';
     }
 }
+class Movie {
+    constructor(movie){
+        this.id = movie.id;
+        this.title = movie.title;
+        this.overview = movie.overview.substring(0, 150) + '...';
+        this.average_votes = movie.vote_average;
+        this.total_votes = movie.vote_count;
+        this.image_url = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+        this.popularity = movie.popularity;
+        this.released_on = movie.release_date;
+    }
+}
 
-// middleware for error handling
+// ERROR HANDLING middleware
 // eslint-disable-next-line
 app.use((error, request, response, next) => {
     console.log(error);
     response.status(500).send(error);
 });
 
-// port listener
+// LISTENER
 app.listen(PORT, console.log(`listening on PORT ${PORT}`));
