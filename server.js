@@ -4,7 +4,7 @@
 const express =  require('express');
 const cors = require('cors');
 require('dotenv').config();
-const weatherData = require('./data/weather.json');
+const axios = require('axios');
 
 // Express server instance
 const app = express();
@@ -20,16 +20,16 @@ const PORT = process.env.PORT || 3002;
 app.get('/', (request, response) => {
     response.send('Testing. 1, 2, 3?');
 });
-// weather data
-app.get('/weather', (request, response, next) => {
+// weather route
+app.get('/weather', async (request, response, next) => {
     try {
-        // const lat = request.query.lat;
-        // const lon = request.query.lon;
-        const searchQuery = request.query.searchQuery;
-        // or alternatively we could do the same with  destructing:
-        //  const{lat, lon, searchQuery} = request.query;
-        const forecast = new Forecast(searchQuery);
-        const forecasts = forecast.getForecast();
+        const lat = Number(request.query.lat);
+        const lon = Number(request.query.lon);
+        // or alternatively we could do the same with destructing: const{lat, lon} = request.query;
+        const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lang=en&units=M&days=7&lat=${lat}&lon=${lon}`;
+        const weatherResponse = await axios.get(weatherUrl);
+        console.log(weatherResponse.data);
+        const forecasts = weatherResponse.data.data.map(day => new Forecast(day));
         // send forecasts array back
         response.status(200).send(forecasts);
     } catch(error) {
@@ -39,16 +39,12 @@ app.get('/weather', (request, response, next) => {
 
 // classes
 class Forecast {
-    constructor(userCity){
-        let {data} = weatherData.find(city => city.city_name.toLowerCase() === userCity.toLowerCase());
-        this.data = data;
-    }
-
-    getForecast() {
-        return this.data.map(day => ({
-            date: day.datetime,
-            description: day.weather.description,
-        }));
+    constructor(day){
+        this.id = day.sunrise_ts;
+        this.date = day.datetime;
+        this.description = day.weather.description;
+        this.lowTemp = day.low_temp + ' °C';
+        this.highTemp = day.high_temp + ' °C';
     }
 }
 
