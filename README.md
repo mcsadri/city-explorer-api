@@ -1,7 +1,7 @@
 # City Explorer API
 
 **Author**: Your Name Goes Here
-**Version**: 2.0.0
+**Version**: 2.1.0
 
 **Trello board**: [trello.com/b/jvSJYqyl/city-explorer](https://trello.com/b/jvSJYqyl/city-explorer)
 
@@ -39,13 +39,13 @@ City Explorer is a React application that uses the Axios library to make user-in
 ### Time Estimate 08
 
 | Number & Name of Feature | #1: Weather | #2: Movies | #3: Publish |
-|--------------------------|------------|-------------|---------------|
+|--------------------------|-------------|------------|-------------|
 | Est. Time to Complete    | --:-- | --:-- | --:-- |
 | Start Time               | --:-- | --:-- | --:-- |
 | Finish Time              | --:-- | --:-- | --:-- |
 | Actual Time to Complete  | --:-- | --:-- | --:-- |
 
-### Web Request-Response Cycle - completed with Azgi Coban
+### Web Request-Response Cycle - completed with Ezgi Coban
 
 [Web Request-Response Cycle - lab 08](/public/images/request-response-lab08.jpg "Web Request-Response Cycle")
 
