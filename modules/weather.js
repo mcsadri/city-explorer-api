@@ -1,31 +1,41 @@
 'use strict';
 
 const axios = require('axios');
+const cache = require('./cache.js');
 
 function fetchWeather(request, response) {
-    console.log('lat & lon: ', request.query.lat, ' ', request.query.lon);
-    const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lang=en&units=M&days=7&lat=${request.query.lat}&lon=${request.query.lon}`;
-    axios
-        .get(weatherUrl)
-        .then(weatherResponse => {
-            console.log(weatherResponse.data);
-            const forecasts = weatherResponse.data.data.map(day => new Forecast(day));
-            response.status(200).send(forecasts);
-        })
-        .catch (error => {
-            console.error('fetchWeather axios error: ', error);
-            response.status(500).send('fetchWeather server error: ', error);
-            // next(error.message);
-        });
+    const {lat, lon} = request.query;
+    const key = 'weather-' + lat + lon;
+    const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_API_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
+
+    if (cache[key] && (Date.now() - cache[key].timestamp < 600000)) {
+        console.log('Cache hit');
+    } else {
+        console.log('Cache miss');
+        cache[key] = {};
+        cache[key].timestamp = Date.now();
+        cache[key].data = axios.get(url)
+            .then(response => parseWeather(response.data));
+    }
+
+    return cache[key].data;
 }
 
-class Forecast {
-    constructor(day){
-        this.id = day.sunrise_ts;
-        this.date = day.datetime;
-        this.description = day.weather.description;
-        this.lowTemp = day.low_temp + ' °C';
-        this.highTemp = day.high_temp + ' °C';
+function parseWeather(weatherData) {
+    try {
+        const weatherSummaries = weatherData.data.map(day => {
+            return new Weather(day);
+        });
+        return Promise.resolve(weatherSummaries);
+    } catch (e) {
+        return Promise.reject(e);
+    }
+}
+
+class Weather {
+    constructor(day) {
+        this.forecast = day.weather.description;
+        this.time = day.datetime;
     }
 }
 
