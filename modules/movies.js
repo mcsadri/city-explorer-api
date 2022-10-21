@@ -8,7 +8,7 @@ function fetchMovies(request, response) {
     axios
         .get(movieUrl)
         .then(movieResponse => {
-            console.log(movieResponse.data);
+            // console.log(movieResponse.data);
             const movies = movieResponse.data.results.map(movie => new Movie(movie));
             response.status(200).send(movies);
         })
