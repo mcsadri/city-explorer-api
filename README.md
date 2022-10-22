@@ -28,6 +28,24 @@ City Explorer is a React application that uses the Axios library to make user-in
 
 ---
 
+## Lab 10
+
+### Tasks & User Stories 10
+
+1. Performance: As a user, I want the application to work with recent results, so that I can see info without the app doing unnecessary API calls.
+2. STRETCH: As a user of City Explorer, I want to see info about restaurants in the city I searched, so that I find the best places to eat.
+
+### Time Estimate 10
+
+| Number & Name of Feature | #1: Performance | #2: Stretch |
+|--------------------------|-----------------|-------------|
+| Est. Time to Complete    | --:-- | --:-- |
+| Start Time               | --:-- | --:-- |
+| Finish Time              | --:-- | --:-- |
+| Actual Time to Complete  | --:-- | --:-- |
+
+---
+
 ## Lab 08
 
 ### Tasks & User Stories 08
